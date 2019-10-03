@@ -50,3 +50,7 @@ hr {
 .right {
   border-left: 1px black solid;
 }
+
+.left, .right, .middle {
+  cursor: pointer;
+}
