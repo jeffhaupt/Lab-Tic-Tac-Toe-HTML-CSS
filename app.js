@@ -1,51 +1,92 @@
 let boardCells = document.querySelectorAll(".row");
 let turnCounter = 1;
 
+/****************************************************
+xMoves & oMoves are created to track class names that
+are logically used to check to see if the x or O
+player has one.
+
+It creates a string that keeps track by concantonating
+the class names to the string and then the string is
+searched for number of instances of class names to
+determine a win
+*****************************************************/
 let xMoves = "";
 let oMoves = "";
 
+//adding a click event listener to div "rows"
 boardCells.forEach(function(boardCell){
   boardCell.addEventListener("click", changeSquare);
 });
 
+/****************************************************
+changeSquare is used to determine whether it is a move
+for X or O and then adds the appropriate letter to the
+clicked square, so long as the square is not already
+occupied. After each move, the game is checked to see
+if there is a winner.
+*****************************************************/
 function changeSquare(e){
-  let clickedSquare = e.target;
-  if ((turnCounter % 2) != 0 ) {
-    clickedSquare.textContent = "X";
-    turnCounter++;
-    xMoves = xMoves + e.target.className + " ";
-    checkForWin("x");
-  } else {
-    clickedSquare.textContent = "O";
-    turnCounter++;
-    oMoves = oMoves + e.target.className + " ";
-    checkForWin("o");
+  if (e.target.textContent == ""){ //check to make sure square is not occupied
+    let clickedSquare = e.target;
+    if ((turnCounter % 2) != 0 ) {
+      clickedSquare.textContent = "X";// change sqaure to show X
+      xMoves = xMoves + e.target.className + " ";
+      checkForWin("x");
+      turnCounter++;
+      if (turnCounter == 9) {
+        declareDraw();
+      }
+    } else {
+      clickedSquare.textContent = "O"; //change square to show O
+      oMoves = oMoves + e.target.className + " ";
+      checkForWin("o");
+      turnCounter++;
+      if (turnCounter == 9) {
+        declareDraw();
+      }
+    }
   }
 }
 
 function checkForWin(moveMade) {
-  if (moveMade == "x") {
-    if ((xMoves.split("top").length - 1) == 3) {
-      console.log("X Wins! - Top Row");
-    } else if((xMoves.split("bottom").length - 1) == 3) {
-      console.log("X Wins! - Bottom Row");
-    } else if((xMoves.split("middle").length - 1) == 4) {
-      console.log("X Wins! - Middle Row");
-    } else if((xMoves.split("left").length - 1) == 3) {
-      console.log("X Wins! - Left Row");
-    } else if((xMoves.split("right").length - 1) == 3) {
-        console.log("X Wins! - Right Row");
+  if (moveMade == "x") { //check "x" move to see if it resulted in a win
+    if (((xMoves.split("top left").length - 1) == 1) && ((xMoves.split("top middle").length - 1) == 1) && ((xMoves.split("top right").length - 1) == 1)){
+      console.log("X Wins! - Top Row");//end top row "x" win check
+    } else if (((xMoves.split("bottom left").length - 1) == 1) && ((xMoves.split("bottom middle").length - 1) == 1) && ((xMoves.split("bottom right").length - 1) == 1)){
+      console.log("X Wins! - Bottom Row");//end bottom row "x" check
+    } else if(((xMoves.split("middle left").length - 1) == 1) && ((xMoves.split("middle middle").length - 1) == 1) && ((xMoves.split("middle right").length - 1) == 1)){
+      console.log("X Wins! - Middle Row");//end middle (horizontal) row "x" check
+    } else if(((xMoves.split("top middle").length - 1) == 1) && ((xMoves.split("middle middle").length - 1) == 1) && ((xMoves.split("bottom middle").length - 1) == 1)){
+      console.log("X Wins! - Middle Column"); //end middle column check
+    } else if(((xMoves.split("top left").length - 1) == 1) && ((xMoves.split("middle left").length - 1) == 1) && ((xMoves.split("bottom left").length - 1) == 1)){
+      console.log("X Wins! - Left Row"); // end left column check
+    } else if(((xMoves.split("top right").length - 1) == 1) && ((xMoves.split("middle right").length - 1) == 1) && ((xMoves.split("bottom right").length - 1) == 1)){
+      console.log("X Wins! - Left Row"); // end right column check
     } else if(((xMoves.split("top left").length - 1) == 1) && ((xMoves.split("middle middle").length - 1) == 1) && ((xMoves.split("bottom right").length - 1) == 1)) {
-      console.log("X Wins Again!");
+      console.log("X Wins diaganol1!");
     } else if(((xMoves.split("top right").length - 1) == 1) && ((xMoves.split("middle middle").length - 1) == 1) && ((xMoves.split("bottom left").length - 1) == 1)) {
-      console.log("X Wins Again!");
-
+      console.log("X Wins diaganol2!");
     }
-    //console.log(xMoves.split("top").length - 1);
-    /* for(let i = 0, i < xMoves.length; i++){
-
-    } */
   } //end if moveMade = x statement
+
+  if (moveMade == "o") { // check "O" moves to see if there is a win
+    if ((oMoves.split("top").length - 1) == 3) {
+      console.log("O Wins! - Top Row");
+    } else if((oMoves.split("bottom").length - 1) == 3) {
+      console.log("O Wins! - Bottom Row");
+    } else if((oMoves.split("middle").length - 1) == 4) {
+      console.log("O Wins! - Middle Row");
+    } else if((oMoves.split("left").length - 1) == 3) {
+      console.log("O Wins! - Left Row");
+    } else if((oMoves.split("right").length - 1) == 3) {
+        console.log("O Wins! - Right Row");
+    } else if(((oMoves.split("top left").length - 1) == 1) && ((oMoves.split("middle middle").length - 1) == 1) && ((oMoves.split("bottom right").length - 1) == 1)) {
+      console.log("O Wins Again!");
+    } else if(((oMoves.split("top right").length - 1) == 1) && ((oMoves.split("middle middle").length - 1) == 1) && ((oMoves.split("bottom left").length - 1) == 1)) {
+      console.log("O Wins Again!");
+    }
+  } //end if moveMade = o statement
 }
 
 function declareDraw(){
