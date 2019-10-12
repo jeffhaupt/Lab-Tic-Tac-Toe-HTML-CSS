@@ -34,7 +34,7 @@ function changeSquare(e){
       xMoves = xMoves + e.target.className + " ";
       checkForWin("x");
       turnCounter++;
-      if (turnCounter == 9) {
+      if (turnCounter == 10) {
         declareDraw();
       }
     } else {
@@ -42,7 +42,7 @@ function changeSquare(e){
       oMoves = oMoves + e.target.className + " ";
       checkForWin("o");
       turnCounter++;
-      if (turnCounter == 9) {
+      if (turnCounter == 10) {
         declareDraw();
       }
     }
@@ -71,20 +71,22 @@ function checkForWin(moveMade) {
   } //end if moveMade = x statement
 
   if (moveMade == "o") { // check "O" moves to see if there is a win
-    if ((oMoves.split("top").length - 1) == 3) {
-      console.log("O Wins! - Top Row");
-    } else if((oMoves.split("bottom").length - 1) == 3) {
-      console.log("O Wins! - Bottom Row");
-    } else if((oMoves.split("middle").length - 1) == 4) {
-      console.log("O Wins! - Middle Row");
-    } else if((oMoves.split("left").length - 1) == 3) {
-      console.log("O Wins! - Left Row");
-    } else if((oMoves.split("right").length - 1) == 3) {
-        console.log("O Wins! - Right Row");
+    if (((oMoves.split("top left").length - 1) == 1) && ((oMoves.split("top middle").length - 1) == 1) && ((oMoves.split("top right").length - 1) == 1)){
+      console.log("O Wins! - Top Row");//end top row "o" win check
+    } else if (((oMoves.split("bottom left").length - 1) == 1) && ((oMoves.split("bottom middle").length - 1) == 1) && ((oMoves.split("bottom right").length - 1) == 1)){
+      console.log("O Wins! - Bottom Row");//end bottom row "o" check
+    } else if(((oMoves.split("middle left").length - 1) == 1) && ((oMoves.split("middle middle").length - 1) == 1) && ((oMoves.split("middle right").length - 1) == 1)){
+      console.log("O Wins! - Middle Row");//end middle (horizontal) row "o" check
+    } else if(((oMoves.split("top middle").length - 1) == 1) && ((oMoves.split("middle middle").length - 1) == 1) && ((oMoves.split("bottom middle").length - 1) == 1)){
+      console.log("O Wins! - Middle Column"); //end middle column check
+    } else if(((oMoves.split("top left").length - 1) == 1) && ((oMoves.split("middle left").length - 1) == 1) && ((oMoves.split("bottom left").length - 1) == 1)){
+      console.log("O Wins! - Left Row"); // end left column check
+    } else if(((oMoves.split("top right").length - 1) == 1) && ((oMoves.split("middle right").length - 1) == 1) && ((oMoves.split("bottom right").length - 1) == 1)){
+      console.log("O Wins! - Left Row"); // end right column check
     } else if(((oMoves.split("top left").length - 1) == 1) && ((oMoves.split("middle middle").length - 1) == 1) && ((oMoves.split("bottom right").length - 1) == 1)) {
-      console.log("O Wins Again!");
+      console.log("O Wins diaganol1!");
     } else if(((oMoves.split("top right").length - 1) == 1) && ((oMoves.split("middle middle").length - 1) == 1) && ((oMoves.split("bottom left").length - 1) == 1)) {
-      console.log("O Wins Again!");
+      console.log("O Wins diaganol2!");
     }
   } //end if moveMade = o statement
 }
