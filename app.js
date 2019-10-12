@@ -31,6 +31,10 @@ function checkForWin(moveMade) {
       console.log("X Wins! - Bottom Row");
     } else if((xMoves.split("middle").length - 1) == 4) {
       console.log("X Wins! - Middle Row");
+    } else if((xMoves.split("left").length - 1) == 3) {
+      console.log("X Wins! - Left Row");
+    } else if((xMoves.split("right").length - 1) == 3) {
+        console.log("X Wins! - Right Row");
     } else if(((xMoves.split("top left").length - 1) == 1) && ((xMoves.split("middle middle").length - 1) == 1) && ((xMoves.split("bottom right").length - 1) == 1)) {
       console.log("X Wins Again!");
     } else if(((xMoves.split("top right").length - 1) == 1) && ((xMoves.split("middle middle").length - 1) == 1) && ((xMoves.split("bottom left").length - 1) == 1)) {
