@@ -1,6 +1,9 @@
 let boardCells = document.querySelectorAll(".row");
 let turnCounter = 1;
 
+//for modal functionality
+let modal = document.getElementById("myModal");
+
 /****************************************************
 xMoves & oMoves are created to track class names that
 are logically used to check to see if the x or O
@@ -53,6 +56,7 @@ function checkForWin(moveMade) {
   if (moveMade == "x") { //check "x" move to see if it resulted in a win
     if (((xMoves.split("top left").length - 1) == 1) && ((xMoves.split("top middle").length - 1) == 1) && ((xMoves.split("top right").length - 1) == 1)){
       console.log("X Wins! - Top Row");//end top row "x" win check
+      modal.style.display = "block";; //show modal window
     } else if (((xMoves.split("bottom left").length - 1) == 1) && ((xMoves.split("bottom middle").length - 1) == 1) && ((xMoves.split("bottom right").length - 1) == 1)){
       console.log("X Wins! - Bottom Row");//end bottom row "x" check
     } else if(((xMoves.split("middle left").length - 1) == 1) && ((xMoves.split("middle middle").length - 1) == 1) && ((xMoves.split("middle right").length - 1) == 1)){
@@ -93,4 +97,12 @@ function checkForWin(moveMade) {
 
 function declareDraw(){
   alert("No one won!");
+}
+
+function showModal() {
+  if(modal.style.display == 'none') {
+    modal.style.display = 'block';
+  } else {
+    modal.style.display = 'none';
+  }
 }
