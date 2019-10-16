@@ -60,6 +60,7 @@ function checkForWin(moveMade) {
       showModal("X"); //show modal window
     } else if (((xMoves.split("bottom left").length - 1) == 1) && ((xMoves.split("bottom middle").length - 1) == 1) && ((xMoves.split("bottom right").length - 1) == 1)){
       console.log("X Wins! - Bottom Row");//end bottom row "x" check
+      showModal("X");
     } else if(((xMoves.split("middle left").length - 1) == 1) && ((xMoves.split("middle middle").length - 1) == 1) && ((xMoves.split("middle right").length - 1) == 1)){
       console.log("X Wins! - Middle Row");//end middle (horizontal) row "x" check
     } else if(((xMoves.split("top middle").length - 1) == 1) && ((xMoves.split("middle middle").length - 1) == 1) && ((xMoves.split("bottom middle").length - 1) == 1)){
