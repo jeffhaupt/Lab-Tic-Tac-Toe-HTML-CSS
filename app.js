@@ -1,4 +1,6 @@
-let boardCells = document.querySelectorAll(".row");
+let boardCells = document.querySelectorAll("div.left, div.middle, div.right");
+console.log(boardCells);
+
 let turnCounter = 1;
 
 //for modal functionality
@@ -35,6 +37,7 @@ function changeSquare(e){
     let clickedSquare = e.target;
     if ((turnCounter % 2) != 0 ) {
       clickedSquare.textContent = "X";// change sqaure to show X
+      console.log(e.target.classList.value);
       xMoves = xMoves + e.target.className + " ";
       checkForWin("x");
       turnCounter++;
