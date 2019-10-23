@@ -44,10 +44,6 @@ function changeSquare(e){
           if(xMoves.length >= 3) {
             checkForWin(xMoves, "X");
           }
-
-          if (xMoves.length == 5) {
-            declareDraw();
-          } //end declareDraw check
         } //end assign move to xMoves
       } //end for loop to assign move to xMove
 
@@ -69,6 +65,12 @@ function changeSquare(e){
 }
 
 
+/************************************************************************
+This is the main function for the game
+
+* the moves.includes logic is checking for different sets of threes
+  to see if the X or O has successfully won the game
+************************************************************************/
 function checkForWin(moves, whichTurn) {
 
   if ((moves.includes(1) && moves.includes(2)  && moves.includes(3)) ||
@@ -81,22 +83,31 @@ function checkForWin(moves, whichTurn) {
     (moves.includes(3) && moves.includes(5) && moves.includes(7))
   )   {
     showModal(whichTurn);
+  } else if (moves.length == 5){
+    declareDraw();
   }
 } //end checkForWin
 
 
 function declareDraw(){
-  alert("No one won!");
+  showModal(); //calls showModal, but initiates different logic
 }
 
+//shows the modal window
 function showModal(winner) {
     modal.style.display = 'block';
-    modalContent.innerHTML = `<h2>${winner}</h2>
-    <p>Won the game</p>
-    <p class="instruction">click anywhere to reset the game</p>
-    `;
+    if (winner == "X" || winner == "O") {
+      modalContent.innerHTML = `<h2>${winner} WON!</h2>
+      <p class="instruction">click anywhere to reset the game</p>
+      `;
+    } else {
+        modalContent.innerHTML = `<h2>This game is a DRAW</h2>
+        <p class="instruction">click anywhere to reset the game</p>
+        `;
+    }
 }
 
+//resets game play by hiding modal and resetting all variables
 function resetGame() {
   modal.style.display = 'none';
   modalContent.innerHTML = " ";
