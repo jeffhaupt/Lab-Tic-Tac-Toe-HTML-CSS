@@ -3,6 +3,7 @@ let boardCells = document.querySelectorAll("div.left, div.middle, div.right");
 
 //for modal functionality
 let modal = document.getElementById("myModal");
+modal.addEventListener("click", resetGame);
 let modalContent = document.getElementById("modalContent");
 
 /****************************************************
@@ -77,55 +78,12 @@ function checkForWin(moves, whichTurn) {
     (moves.includes(2) && moves.includes(5) && moves.includes(8)) ||
     (moves.includes(3) && moves.includes(6) && moves.includes(9)) ||
     (moves.includes(1) && moves.includes(5) && moves.includes(9)) ||
-    (moves.includes(3) && moves.includes(5) && moves.includes(7)) ||
+    (moves.includes(3) && moves.includes(5) && moves.includes(7))
   )   {
     showModal(whichTurn);
   }
 } //end checkForWin
 
-// function checkForWin(moveMade) {
-//   if (moveMade == "x") { //check "x" move to see if it resulted in a win
-//     if (((xMoves.split("top left").length - 1) == 1) && ((xMoves.split("top middle").length - 1) == 1) && ((xMoves.split("top right").length - 1) == 1)){
-//       console.log("X Wins! - Top Row");//end top row "x" win check
-//       showModal("X"); //show modal window
-//     } else if (((xMoves.split("bottom left").length - 1) == 1) && ((xMoves.split("bottom middle").length - 1) == 1) && ((xMoves.split("bottom right").length - 1) == 1)){
-//       console.log("X Wins! - Bottom Row");//end bottom row "x" check
-//       showModal("X");
-//     } else if(((xMoves.split("middle left").length - 1) == 1) && ((xMoves.split("middle middle").length - 1) == 1) && ((xMoves.split("middle right").length - 1) == 1)){
-//       console.log("X Wins! - Middle Row");//end middle (horizontal) row "x" check
-//     } else if(((xMoves.split("top middle").length - 1) == 1) && ((xMoves.split("middle middle").length - 1) == 1) && ((xMoves.split("bottom middle").length - 1) == 1)){
-//       console.log("X Wins! - Middle Column"); //end middle column check
-//     } else if(((xMoves.split("top left").length - 1) == 1) && ((xMoves.split("middle left").length - 1) == 1) && ((xMoves.split("bottom left").length - 1) == 1)){
-//       console.log("X Wins! - Left Row"); // end left column check
-//     } else if(((xMoves.split("top right").length - 1) == 1) && ((xMoves.split("middle right").length - 1) == 1) && ((xMoves.split("bottom right").length - 1) == 1)){
-//       console.log("X Wins! - Left Row"); // end right column check
-//     } else if(((xMoves.split("top left").length - 1) == 1) && ((xMoves.split("middle middle").length - 1) == 1) && ((xMoves.split("bottom right").length - 1) == 1)) {
-//       console.log("X Wins diaganol1!");
-//     } else if(((xMoves.split("top right").length - 1) == 1) && ((xMoves.split("middle middle").length - 1) == 1) && ((xMoves.split("bottom left").length - 1) == 1)) {
-//       console.log("X Wins diaganol2!");
-//     }
-//   } //end if moveMade = x statement
-//
-//   if (moveMade == "o") { // check "O" moves to see if there is a win
-//     if (((oMoves.split("top left").length - 1) == 1) && ((oMoves.split("top middle").length - 1) == 1) && ((oMoves.split("top right").length - 1) == 1)){
-//       console.log("O Wins! - Top Row");//end top row "o" win check
-//     } else if (((oMoves.split("bottom left").length - 1) == 1) && ((oMoves.split("bottom middle").length - 1) == 1) && ((oMoves.split("bottom right").length - 1) == 1)){
-//       console.log("O Wins! - Bottom Row");//end bottom row "o" check
-//     } else if(((oMoves.split("middle left").length - 1) == 1) && ((oMoves.split("middle middle").length - 1) == 1) && ((oMoves.split("middle right").length - 1) == 1)){
-//       console.log("O Wins! - Middle Row");//end middle (horizontal) row "o" check
-//     } else if(((oMoves.split("top middle").length - 1) == 1) && ((oMoves.split("middle middle").length - 1) == 1) && ((oMoves.split("bottom middle").length - 1) == 1)){
-//       console.log("O Wins! - Middle Column"); //end middle column check
-//     } else if(((oMoves.split("top left").length - 1) == 1) && ((oMoves.split("middle left").length - 1) == 1) && ((oMoves.split("bottom left").length - 1) == 1)){
-//       console.log("O Wins! - Left Row"); // end left column check
-//     } else if(((oMoves.split("top right").length - 1) == 1) && ((oMoves.split("middle right").length - 1) == 1) && ((oMoves.split("bottom right").length - 1) == 1)){
-//       console.log("O Wins! - Left Row"); // end right column check
-//     } else if(((oMoves.split("top left").length - 1) == 1) && ((oMoves.split("middle middle").length - 1) == 1) && ((oMoves.split("bottom right").length - 1) == 1)) {
-//       console.log("O Wins diaganol1!");
-//     } else if(((oMoves.split("top right").length - 1) == 1) && ((oMoves.split("middle middle").length - 1) == 1) && ((oMoves.split("bottom left").length - 1) == 1)) {
-//       console.log("O Wins diaganol2!");
-//     }
-//   } //end if moveMade = o statement
-// }
 
 function declareDraw(){
   alert("No one won!");
@@ -135,5 +93,17 @@ function showModal(winner) {
     modal.style.display = 'block';
     modalContent.innerHTML = `<h2>${winner}</h2>
     <p>Won the game</p>
+    <p class="instruction">click anywhere to reset the game</p>
     `;
+}
+
+function resetGame() {
+  modal.style.display = 'none';
+  modalContent.innerHTML = " ";
+  oMoves = [];
+  xMoves = [];
+  turnCounter = 1;
+  for ( let i = 0; i < boardCells.length; i++ ){
+    boardCells[i].textContent = "";
+  }
 }
